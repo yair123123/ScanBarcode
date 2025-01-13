@@ -1,0 +1,14 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+      {
+        "name": "Attach to React Native",
+        "program": "${workspaceFolder}/.vscode/launch.json",
+        "type": "reactnative",
+        "request": "attach",
+        "platform": "android",
+        "port": 8081
+      }
+    ]
+  }
+  
