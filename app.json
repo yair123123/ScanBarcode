@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "ScanBarcode",
+    "name": "סריקת זיכויים",
     "slug": "ScanBarcode",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -9,18 +9,21 @@
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "runtimeVersion": {
+        "policy": "appVersion"
+      }
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/images/adaptive-icon.png",
+        "foregroundImage": "./assets/images/icon.png",
         "backgroundColor": "#ffffff"
       },
       "permissions": [
-        "android.permission.CAMERA",
         "android.permission.CAMERA"
       ],
-      "package": "com.yair2800.ScanBarcode"
+      "package": "com.yair2800.ScanBarcode",
+      "runtimeVersion": "1.0.0"
     },
     "web": {
       "bundler": "metro",
@@ -43,6 +46,17 @@
     ],
     "experiments": {
       "typedRoutes": true
+    },
+    "extra": {
+      "router": {
+        "origin": false
+      },
+      "eas": {
+        "projectId": "f5cf0157-f339-4aab-86d9-8b3fec1a14c4"
+      }
+    },
+    "updates": {
+      "url": "https://u.expo.dev/f5cf0157-f339-4aab-86d9-8b3fec1a14c4"
     }
   }
 }

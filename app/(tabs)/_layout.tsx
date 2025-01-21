@@ -19,7 +19,7 @@ export default function TabLayout() {
       <Tabs.Screen
         name="index"
         options={{
-          title: 'Scan',
+          title: 'סרוק',
           tabBarIcon: ({ color, focused }) => (
             <Ionicons name={focused ? 'camera': 'camera-outline'} color={color} size={24} />
           )
@@ -27,7 +27,7 @@ export default function TabLayout() {
 
       <Tabs.Screen name="listBarcode"
         options={{
-          title: 'Barocde',
+          title: 'ברקודים',
           tabBarIcon: ({ color, focused }) => (
             <Ionicons name={focused ? 'barcode' : 'barcode-outline'} color={color} size={24} />
           )

@@ -1,5 +1,5 @@
-interface Barcode {
+interface BarcodeData {
     value: string
-    restraunt: string
+    restaurant: string
     amount: number
 }
