@@ -15,7 +15,7 @@ export default function Index() {
   useEffect(() => {
     (async () => {
       const barcodes = getBarcode();
-      setBarcodes(barcodes); 
+      setBarcodes(await barcodes); 
     })();
   }, []);
 

@@ -27,7 +27,7 @@ export default function TabLayout() {
 
       <Tabs.Screen name="listBarcode"
         options={{
-          title: 'ברקודים',
+          title: 'ברקודיםםםםם',
           tabBarIcon: ({ color, focused }) => (
             <Ionicons name={focused ? 'barcode' : 'barcode-outline'} color={color} size={24} />
           )
