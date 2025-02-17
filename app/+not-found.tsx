@@ -1,31 +1,29 @@
-import {Stack,Link} from 'expo-router';
-import {View,StyleSheet} from 'react-native';
-import React from 'react';
-export  const NotFoundScreen = () =>(
+import { Stack } from 'expo-router';
+import { View, StyleSheet } from 'react-native';
+import { Link } from 'expo-router';
 
-  <>
-  <Stack.Screen options={{title:'Not Found'}} />
-  <View style={styles.container}>
-    <Link style= {styles.button} href={'/'}>
-      Go back to home
-    </Link>
-
+const NotFoundScreen = () => (
+  <View>
+    <Stack.Screen options={{ title: 'Not Found' }} />
+    <View style={styles.container}>
+      <Link style={styles.button} href={'/tabs/(scan)'}>
+        Go back to home
+      </Link>
+    </View>
   </View>
-  </>
-)
+);
 
-const styles = StyleSheet.create(
-  {
-    container:{
-      flex:1,
-      backgroundColor:'#25292e',
-      justifyContent:'center',
-      alignItems:'center',
-    },
-    button:{
-      fontSize:20,
-      textDecorationLine:'underline',
-      color:'#fff',
-    }
-  }
-)
+export default NotFoundScreen;
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 20,
+  },
+  button: {
+    fontSize: 18,
+    color: '#007BFF',
+  },
+});

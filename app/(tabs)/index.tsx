@@ -1,82 +1,68 @@
-import { useState, useEffect, useRef } from "react";
-import { SafeAreaView, Text, StyleSheet, Animated, View, Dimensions, Vibration, Alert } from "react-native";
-import { useRouter } from "expo-router";
-import CameraScanner from "../components/CameraScanner";
-import BarcodeInput from "../components/BarcodeInput";
-import { Camera } from "expo-camera";
-import Overlay from "../components/Overlay";
-import { errorVibration, successVibration } from "../utils/vibrationPattern";
-
-const { width, height } = Dimensions.get("window");
+import { useFocusEffect } from "@react-navigation/native";
+import React, { useCallback, useEffect, useState } from "react";
+import { Button, Text, View } from "react-native";
+import RestaurantBarcode from "../../components/RestaurantBarcodes";
+import EmptyState from "@/components/EmptyState";
+import { showBarcode } from "@/utils/showBarcode";
+import ListInactiveBarcodes from "@/components/ListInactiveBarcode";
+import { restaurants } from "@/utils/images";
+import useBarcodeUsed from "@/hooks/useBarcodeUsed";
 
 export default function Index() {
-  const router = useRouter();
-  const [hasPermission, setHasPermission] = useState<boolean | undefined>(undefined);
-  const [scanned, setScanned] = useState(false);
-  const [barcodeData, setBarcodeData] = useState("");
+  const [refreshKey, setRefreshKey] = useState(0);
+  const {
+    deleteBarcode,
+    fetchData,
+    activeBarcodes,
+    inactiveBarcodes,
+    unmarkBarcodeAsUsed,
+    markBarcodeAsUsed
+  } = useBarcodeUsed();
+  const [showActive, setshowActive] = useState<boolean>(true);
 
-  const lineAnimation = useRef(new Animated.Value(0)).current;
+
 
   useEffect(() => {
-    (async () => {
-      const { status } = await Camera.requestCameraPermissionsAsync();
-      setHasPermission(status === "granted");
-    })();
-  }, []);
+    setRefreshKey((prev) => prev + 1);
+  }, [activeBarcodes, inactiveBarcodes]);
 
-  const handleBarcode = ({ type, data }: { type: string; data: string }) => {
-    console.log(data.length);
 
-    if (type !== "code128" || data.length !== 17 && data.length !== 16) {
-      errorVibration()
-      setScanned(true)
-      Alert.alert("לא בפורמט", "הברקוד צריך להיות בפורמט CODE128",
-        [{
-          text: "אישור",
-          onPress: (() => { setScanned(false) })
-        }]
-      );
-      return;
-    }
-    successVibration()
-    setBarcodeData(data);
-    router.push("../screens/detailsBarcode ? data = ${ data }");
-  };
-
-  if (!hasPermission) return <Text>Requesting permission...</Text>;
-
-  return (
-    <SafeAreaView style={styles.container}>
-      <View style={styles.cameraContainer}>
-        <CameraScanner onBarcodeScanned={handleBarcode} scanned={scanned} />
-        <Overlay lineAnimation={lineAnimation} height={height} width={width} />
-        <View style={styles.barcodeInput}>
-          <BarcodeInput 
-            barcodeData={barcodeData} 
-            setBarcodeData={setBarcodeData} 
-            handleBarcode={handleBarcode} 
-            scanned={scanned} 
-          />
-        </View>
-      </View>
-    </SafeAreaView>
+  useFocusEffect(
+    useCallback(() => {
+      fetchData(); // מפעיל את הפונקציה מתוך ה-Hook במקום לקרוא ל-Hook עצמו
+    }, [fetchData])
   );
-  
-}
 
-const styles = StyleSheet.create({
-  container: { flex: 1 },
-  cameraContainer: {
-    flex: 1,
-    width: "100%",
-  },
-  barcodeInput:{
-    
-    zIndex:10,
-    position:"absolute",
-    top: 20, 
-    left: 0,
-    right: 0,
-    alignItems: "center",
+
+  if (!showActive) {
+    return (
+      <View style={{ flex: 1 }}>
+        <Button color={"green"} title="הצג ברקודים פעילים" onPress={() => setshowActive(true)} />
+        <ListInactiveBarcodes unmarkFunc={unmarkBarcodeAsUsed} deleteFunc={deleteBarcode} barcodes={inactiveBarcodes} />
+      </View>
+    )
   }
-});
+  return (
+    <View key={refreshKey} style={{ flex: 1 }}>
+      <Button color={"grey"} title="הצג ברקודים לא פעילים" onPress={() => setshowActive(false)} />
+      {Object.keys(activeBarcodes).length === 0 ? (
+        <EmptyState />
+      ) : (
+
+        <View >
+          {Object.keys(activeBarcodes).map((restaurant) => {
+            return (
+              <RestaurantBarcode
+                key={restaurant}
+                deleteBarcode={deleteBarcode}
+                markBarcodeAsUsed={markBarcodeAsUsed}
+                restaurant={restaurant}
+                barcodes={activeBarcodes}
+                funcPress={showBarcode}
+              />)
+          })}
+        </View>
+      )}
+    </View>
+  );
+}  

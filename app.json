@@ -1,8 +1,8 @@
 {
   "expo": {
-    "name": "סריקת זיכויים",
+    "name": "Easy Scan",
     "slug": "ScanBarcode",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
     "scheme": "myapp",
@@ -20,22 +20,24 @@
         "backgroundColor": "#ffffff"
       },
       "permissions": [
-        "android.permission.CAMERA"
+        "android.permission.CAMERA",
+        "android.permission.READ_MEDIA_IMAGES",
+        "android.permission.READ_EXTERNAL_STORAGE"
       ],
       "package": "com.yair2800.ScanBarcode",
-      "runtimeVersion": "1.0.0"
+      "runtimeVersion": "1.0.1"
     },
     "web": {
       "bundler": "metro",
       "output": "static",
-      "favicon": "./assets/images/favicon.png"
+      "favicon": "./assets/images/icon.png"
     },
     "plugins": [
       "expo-router",
       [
         "expo-splash-screen",
         {
-          "image": "./assets/images/splash-icon.png",
+          "image": "./assets/images/icon.png",
           "imageWidth": 200,
           "resizeMode": "contain",
           "backgroundColor": "#ffffff"
@@ -56,7 +58,9 @@
       }
     },
     "updates": {
-      "url": "https://u.expo.dev/f5cf0157-f339-4aab-86d9-8b3fec1a14c4"
+      "url": "https://u.expo.dev/f5cf0157-f339-4aab-86d9-8b3fec1a14c4",
+      "checkAutomatically": "ON_ERROR_RECOVERY",
+      "fallbackToCacheTimeout": 0
     }
   }
 }
