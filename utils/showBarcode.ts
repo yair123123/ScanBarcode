@@ -1,18 +1,23 @@
 import { router } from "expo-router";
 
-export const showBarcode = (barcodes: BarcodeData[],indexBarcode:number) => {
-    const barcodesJson = JSON.stringify(barcodes);
-    console.log("route...");
-    
-    router.push(`/screens/show?data=${encodeURIComponent(barcodesJson)}&index=${encodeURIComponent(JSON.stringify(indexBarcode))}`);
-  };
-  export const findBarcodeLowestIndex = (barcodes: BarcodeData[]) => {
-    return barcodes.reduce((minIndex, current, index, array) => {
-        return current.amount < array[minIndex].amount ? index : minIndex;
-    }, 0);
-};
 
-export const makeBarcodeUnusable = (barcode:BarcodeData) => {
+
+
+export const showBarcode = (barcodes: BarcodeData[]) => {
+
+  const barcodesJson = JSON.stringify(barcodes);
+  router.push(`/screens/show?data=${encodeURIComponent(barcodesJson)}`);
+};
+export const findBarcodeLowestIndex = (barcodes: BarcodeData[]) => {
+  return barcodes.reduce((minIndex, current, index, array) => {
+    return current.amount < array[minIndex].amount ? index : minIndex;
+  }, 0);
+};
+export const sortByAmount = (barcodes: BarcodeData[]) => {
+  return barcodes.sort((a, b) => a.amount - b.amount);
+}
+
+export const makeBarcodeUnusable = (barcode: BarcodeData) => {
   const now = new Date();
   const formattedDate = now.toLocaleDateString();
   const formattedTime = now.toLocaleTimeString();

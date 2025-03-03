@@ -29,16 +29,22 @@ export default function Index() {
 
   useFocusEffect(
     useCallback(() => {
-      fetchData(); // מפעיל את הפונקציה מתוך ה-Hook במקום לקרוא ל-Hook עצמו
+      fetchData(); 
     }, [fetchData])
   );
 
-
+  
   if (!showActive) {
     return (
       <View style={{ flex: 1 }}>
         <Button color={"green"} title="הצג ברקודים פעילים" onPress={() => setshowActive(true)} />
+          {Object.keys(inactiveBarcodes).length === 0 ? 
+          <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+          <Text style={{fontSize: 25}}>חוסך ליין? 😉</Text> 
+          </View>
+          :
         <ListInactiveBarcodes unmarkFunc={unmarkBarcodeAsUsed} deleteFunc={deleteBarcode} barcodes={inactiveBarcodes} />
+        }
       </View>
     )
   }

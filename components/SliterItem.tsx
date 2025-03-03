@@ -1,7 +1,6 @@
 import React from 'react';
 import { View, Text, StyleSheet, Dimensions } from 'react-native';
 import { Barcode } from 'expo-barcode-generator';
-import { BlurView } from 'expo-blur'
 
 type SliderItemProps = {
     item: BarcodeData,

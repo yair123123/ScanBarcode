@@ -14,11 +14,9 @@ import Slider from "@/components/Slider";
 export default function ShowBarcode() {
   const params = useLocalSearchParams();
   const [barcodes, setBarcodes] = useState<BarcodeData[]>(JSON.parse(params.data as string) as BarcodeData[]);
-  const [correctBarcodeIndex, setCorrectBarcodeIndex] = useState<number>(
-    JSON.parse(params.index as string) as number
-  );
-  const [refreshKey, setRefreshKey] = useState(0);
-
+  const [correctBarcodeIndex, setCorrectBarcodeIndex] = useState<number>(0);
+  console.log(barcodes.map((barcode) => (barcode.amount)));
+  
   return (
     <View style={styles.container}>
       <Slider setBarcodes={setBarcodes} currentIndex={correctBarcodeIndex} setCurrentIndex={setCorrectBarcodeIndex} barcodes={barcodes} />

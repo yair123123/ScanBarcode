@@ -28,10 +28,10 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: 'white', // צבע רקע אם תרצה
+    backgroundColor: 'white', 
   },
   gif: {
-    width: 300, // גודל ה-GIF, תוכל להתאים אותו
+    width: 300, 
     height: 300,
   },
 });

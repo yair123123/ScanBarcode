@@ -34,7 +34,7 @@ export default function ModalContactUs({ isVisible, setIsVisible }: props) {
                             <Image style={styles.image} source={require("@/assets/images/whatsapp.png")} />
                         </TouchableOpacity>
                         <TouchableOpacity onPress={() => { openLinkedIn(linkedinId) }} style={[styles.modalSection, { backgroundColor: "rgba(6, 38, 143, 0.29)" }]}>
-                            <Text style={styles.sectionText}>{linkedinId}</Text>
+                            <Text style={styles.sectionText}>yair-achrack</Text>
                             <Image style={styles.image} source={require("@/assets/images/linkedin.png")} />
                         </TouchableOpacity>
                         <View style={styles.closeButtonContainer}>

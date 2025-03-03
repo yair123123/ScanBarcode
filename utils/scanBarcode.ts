@@ -4,11 +4,12 @@ import { Alert } from "react-native";
 
 
 const scanBarcodeFromImage = async (imageUri: string, handleBarcode: (barcode: { type: string, data: string }) => void) => {
-    try {
-        Camera.scanFromURLAsync(imageUri, ["code128"])
-        const barcodes = await Camera.scanFromURLAsync(imageUri, ["code128"])
+    
 
+    try {
+        const barcodes = await Camera.scanFromURLAsync(imageUri, ["code128"]);
         if (barcodes.length > 0) {
+
             handleBarcode({ type: "code128", data: barcodes[0].data });
         } else {
             Alert.alert("לא נמצא ברקוד בתמונה");
@@ -18,4 +19,4 @@ const scanBarcodeFromImage = async (imageUri: string, handleBarcode: (barcode: {
     }
 };
 
-export {scanBarcodeFromImage};
+export { scanBarcodeFromImage };

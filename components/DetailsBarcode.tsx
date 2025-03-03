@@ -1,6 +1,6 @@
 import { StyleSheet, View, Text, TouchableOpacity, Button } from "react-native"
 import { Barcode } from 'expo-barcode-generator';
-import { showBarcode } from "@/utils/showBarcode";
+import {  showBarcode, sortByAmount } from "@/utils/showBarcode";
 import { restaurants } from "@/utils/images";
 
 type props = {
@@ -15,9 +15,15 @@ type props = {
 
 export default function DetailsBarcode({deleteBarcode,markBarcodeAsUsed ,barcodeData, index, toggleModel, barcodesToShow }: props) {
     const { amount, value, date, time,restaurant } = barcodeData;
-
+    const moveToTop = (arr, index) => {
+        if (index < 0 || index >= arr.length) return arr; // בדיקה שהאינדקס תקף
+        const [item] = arr.splice(index, 1); // מוציאים את האיבר מהמערך
+        arr = sortByAmount(arr);
+        arr.unshift(item); // מכניסים אותו לראש הרשימה
+        return arr;
+      }
     return (
-        <TouchableOpacity onPress={() => { toggleModel(); showBarcode(barcodesToShow, index) }} style={styles.container}>
+        <TouchableOpacity onPress={() => { toggleModel(); showBarcode(moveToTop(barcodesToShow,index)) }} style={styles.container}>
             <View style={styles.barcode}>
                 <Barcode
                     value={value}
