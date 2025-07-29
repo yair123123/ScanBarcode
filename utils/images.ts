@@ -4,14 +4,14 @@ export const restaurants = [
     { value:"Jewish" ,label: "המסעדה היהודית"}
    
 ]
-const parserRestaurant:{[key:string]:string} = {
+const restaurantNameMap:{[key:string]:string} = {
     "Goldis": "גולדיס",
     "Humus":"חומוס נרי",
     "Jewish":"המסעדה היהודית"
 }
 
-export const parseRestaurantToHebrow = (restaurant: string) => (
-    parserRestaurant[restaurant] || restaurant
+export const parseRestaurantToHebrew = (restaurant: string) => (
+    restaurantNameMap[restaurant] || restaurant
 );
 const restaurantImages: { [key: string]: any } = {
     "Goldis": require('@/assets/images/Goldis.jpg'),

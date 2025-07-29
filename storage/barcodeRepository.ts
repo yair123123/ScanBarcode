@@ -3,7 +3,7 @@ import * as SecureStore from 'expo-secure-store'
 
 
 
-const toggleIsActive = async (newBarcode: BarcodeData) => {
+const updateBarcodeStatus = async (newBarcode: BarcodeData) => {
     const existingData: BarcodeData[] = JSON.parse(await SecureStore.getItemAsync('Barcodes') || '[]')
     const updateData: BarcodeData[] = existingData.map((barcode) => (
         barcode.value === newBarcode.value ?
@@ -26,7 +26,7 @@ const saveBarcode = async (barcode: BarcodeData) => {
     return true
 }
 
-const getBarcode = async () => {
+const getBarcodes = async () => {
     return JSON.parse(await SecureStore.getItemAsync('Barcodes') || '[]')
 }
 const deleteBarcodeByValue = async (value: string) => {
@@ -47,4 +47,4 @@ const deleteBarcodeByValue = async (value: string) => {
 
 }
 
-export { saveBarcode, getBarcode, deleteBarcodeByValue, toggleIsActive }
+export { saveBarcode, getBarcodes, deleteBarcodeByValue, updateBarcodeStatus }

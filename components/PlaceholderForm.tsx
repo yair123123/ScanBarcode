@@ -1,5 +1,5 @@
 import {View} from 'react-native'
-export default function InputForm() {
+export default function PlaceholderForm() {
     return (
         <View>
 

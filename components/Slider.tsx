@@ -1,10 +1,10 @@
 import { View, Text, FlatList, StyleSheet, ViewToken, Dimensions, ImageBackground, Alert } from 'react-native';
-import SliderItem from './SliterItem';
+import SliderItem from './SliderItem';
 import React, { useRef, useState } from 'react';
 import CustomButton from '@/ui/CustomButton';
 import { router } from 'expo-router';
 import { makeBarcodeUnusable } from '@/utils/showBarcode';
-import { toggleIsActive } from '@/storage/barcodeRepository';
+import { updateBarcodeStatus } from '@/storage/barcodeRepository';
 
 interface SliderProps {
     barcodes: BarcodeData[];
@@ -22,11 +22,11 @@ export default function Slider({ setBarcodes, barcodes, currentIndex, setCurrent
         }
     }).current;
 
-    const barcodeUsed = async () => {
+    const handleBarcodeUsed = async () => {
         const newBarcode = makeBarcodeUnusable(barcodes[currentIndex])
         const updatedBarcodes = barcodes.map((barcode, index) => (index === currentIndex ? newBarcode : barcode));
         setBarcodes(updatedBarcodes);
-        toggleIsActive(newBarcode)
+        updateBarcodeStatus(newBarcode)
         Alert.alert( "אישור","ברקוד שומש בהצלחה!!")
       }
 
@@ -52,7 +52,7 @@ export default function Slider({ setBarcodes, barcodes, currentIndex, setCurrent
                 })}
             />
             <View style={styles.indexIndicator}>
-                <CustomButton style={[styles.button, { backgroundColor: "green" }]} onPress={(barcodeUsed)} title={"סרקתי בהצלחה"} disabled={!barcodes[currentIndex].is_active} />
+                <CustomButton style={[styles.button, { backgroundColor: "green" }]} onPress={handleBarcodeUsed} title={"סרקתי בהצלחה"} disabled={!barcodes[currentIndex].is_active} />
                 <CustomButton style={[styles.button, { backgroundColor: "blue" }]} onPress={() => { router.replace('/(tabs)/scan') }} title={"סרוק ברקוד חדש"} />
             </View>
         </View>

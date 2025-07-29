@@ -8,7 +8,7 @@ import { saveBarcode } from "../../storage/barcodeRepository";
 import { restaurants } from "../../utils/images";
 
 export default function InputDetails() {
-    const [coust, onChangeCoust] = useState("");
+    const [amount, onChangeAmount] = useState("");
     const [correctRestaurant, setCorrectRestaurant] = useState<string>("");
     const { data }: { data: string } = useLocalSearchParams();
 
@@ -19,7 +19,7 @@ export default function InputDetails() {
 
     const addBarcode = async () => {
 
-        if (!coust || !correctRestaurant) {
+        if (!amount || !correctRestaurant) {
             Alert.alert("שגיאה", "אנא מלא את כל השדות הדרושים.");
             return;
         }
@@ -30,7 +30,7 @@ export default function InputDetails() {
             const formattedTime = now.toLocaleTimeString();
             const res = await saveBarcode({
                 is_active: true,
-                amount: Number(coust),
+                amount: Number(amount),
                 restaurant: correctRestaurant,
                 value: data,
                 date: formattedDate,
@@ -75,8 +75,8 @@ export default function InputDetails() {
 
             <View style={styles.input}>
                 <TextInput
-                    value={coust}
-                    onChangeText={onChangeCoust}
+                    value={amount}
+                    onChangeText={onChangeAmount}
                     placeholder="הכנס סכום זיכוי"
                     keyboardType="numeric"
                     style={styles.inputField}

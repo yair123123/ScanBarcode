@@ -8,7 +8,6 @@ import EmptyBarcode from "@/components/EmptyBarcode";
 import { useLocalSearchParams, router } from "expo-router";
 import React, { useEffect, useState } from "react";
 import useBarcodeAnimation from "@/hooks/useBarcodeAnimation";
-import { toggleIsActive } from "@/storage/barcodeRepository";
 import Slider from "@/components/Slider";
 
 export default function ShowBarcode() {
