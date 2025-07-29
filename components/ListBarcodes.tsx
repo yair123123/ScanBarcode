@@ -1,6 +1,6 @@
 import { View, Text, FlatList, Button, StyleSheet } from "react-native";
 import DetailsBarcode from "./DetailsBarcode";
-import { parseRestaurantToHebrow } from "../utils/images";
+import { parseRestaurantToHebrew } from "../utils/images";
 import { useState } from "react";
 type props = {
     barcodes: { [key: string]: BarcodeData[] }
@@ -16,14 +16,14 @@ export function ListBarcodes({ toggleModal, barcodesToShow, restaurantName, dele
     return (
         <View style={styles.modalContainer}>
             <View style={styles.modalContent}>
-                <Text style={styles.modalTitle}>{`ברקודים למסעדה ${parseRestaurantToHebrow(restaurantName)}`}</Text>
+                <Text style={styles.modalTitle}>{`ברקודים למסעדה ${parseRestaurantToHebrew(restaurantName)}`}</Text>
                 <FlatList
                     contentContainerStyle={{ paddingVertical: 10 }}
                     data={barcodesToShow}
                     keyExtractor={(item) => item.value}
                     renderItem={({ item, index }: { item: BarcodeData, index: number }) => (
                         <View style={styles.barcodeItem}>
-                            <DetailsBarcode barcodeData={item} index={index} deleteBarcode={deleteBarcode} markBarcodeAsUsed={markBarcodeAsUsed} barcodesToShow={barcodesToShow} barcodes={barcodes} toggleModel={toggleModal} />
+                            <DetailsBarcode barcodeData={item} index={index} deleteBarcode={deleteBarcode} markBarcodeAsUsed={markBarcodeAsUsed} barcodesToShow={barcodesToShow} barcodes={barcodes} toggleModal={toggleModal} />
 
                         </View>
                     )}

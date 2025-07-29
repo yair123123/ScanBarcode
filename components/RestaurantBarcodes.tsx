@@ -1,27 +1,27 @@
 import { View, StyleSheet, TouchableOpacity, Text, FlatList, Modal, Button } from "react-native";
 import { Image } from "expo-image";
 import { useEffect, useState } from "react";
-import { getImageForRestaurant, parseRestaurantToHebrow } from "../utils/images";
+import { getImageForRestaurant, parseRestaurantToHebrew } from "../utils/images";
 import { ListBarcodes } from "./ListBarcodes";
-import { findBarcodeLowestIndex, sortByAmount } from "@/utils/showBarcode";
+import { findLowestAmountIndex, sortByAmount } from "@/utils/showBarcode";
 
 
 
 type RestaurantBarcodeProps = {
   restaurant: string;
   barcodes: { [key: string]: BarcodeData[] };
-  funcPress: (barcodes: BarcodeData[]) => void;
+  onPressBarcodes: (barcodes: BarcodeData[]) => void;
   deleteBarcode: (value: string, restaurant: string) => void;
   markBarcodeAsUsed: (barcodeData: BarcodeData, value: string, restaurant: string) => void;
 };
 
-export default function RestaurantBarcode({ barcodes, funcPress, restaurant, deleteBarcode, markBarcodeAsUsed }: RestaurantBarcodeProps) {
+export default function RestaurantBarcode({ barcodes, onPressBarcodes, restaurant, deleteBarcode, markBarcodeAsUsed }: RestaurantBarcodeProps) {
   const [modalVisible, setModalVisible] = useState<boolean>(false);
 
   const [barcodesToShow, setBarcodesToShow] = useState<BarcodeData[]>(barcodes[restaurant]);
   useEffect(() => { setBarcodesToShow(barcodes[restaurant].filter((item) => item.is_active)) }, [barcodes]);
   const sumAmount = barcodesToShow.reduce((sum, item) => sum + item.amount, 0);
-  const sumAround = Math.round(sumAmount * 100) / 100
+  const sumRounded = Math.round(sumAmount * 100) / 100
 
   const toggleModal = () => {
     setModalVisible((prev) => !prev);
@@ -36,14 +36,14 @@ export default function RestaurantBarcode({ barcodes, funcPress, restaurant, del
         resizeMode="stretch"
       />
 
-      <TouchableOpacity onPress={() => funcPress(sortByAmount(barcodesToShow))} style={styles.restaurantHeader}>
+      <TouchableOpacity onPress={() => onPressBarcodes(sortByAmount(barcodesToShow))} style={styles.restaurantHeader}>
         <View style={styles.restaurantHeader}>
 
-          <Text style={styles.restaurantName}>{parseRestaurantToHebrow(restaurant)}</Text>
+          <Text style={styles.restaurantName}>{parseRestaurantToHebrew(restaurant)}</Text>
 
           <View style={styles.detailsRow}>
 
-            <Text style={styles.totalAmount}>{`${sumAround} ש"ח`}</Text>
+            <Text style={styles.totalAmount}>{`${sumRounded} ש"ח`}</Text>
 
             <TouchableOpacity onPress={toggleModal} style={styles.showModalButton}>
               <Text style={styles.itemCount}>{`${barcodesToShow.length} זיכויים`}</Text>

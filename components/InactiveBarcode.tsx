@@ -1,7 +1,7 @@
 import { View, Text, StyleSheet, Button } from "react-native";
 import { Barcode } from 'expo-barcode-generator';
 import CustomButton from "@/ui/CustomButton";
-import { parseRestaurantToHebrow } from "@/utils/images";
+import { parseRestaurantToHebrew } from "@/utils/images";
 
 
 
@@ -44,7 +44,7 @@ export default function InactiveBarcode({ data, deleteFunc,unmarkFunc }: Props) 
                     <Text>{usedAtDate}</Text>
                 </View>
                 <Text>{amount} ש"ח</Text>
-                <Text>{parseRestaurantToHebrow(restaurant)}</Text>
+                <Text>{parseRestaurantToHebrew(restaurant)}</Text>
             </View>
         </View>
     )

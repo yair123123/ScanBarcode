@@ -3,10 +3,10 @@ import React, { useCallback, useEffect, useState } from "react";
 import { Button, Text, View } from "react-native";
 import RestaurantBarcode from "../../components/RestaurantBarcodes";
 import EmptyState from "@/components/EmptyState";
-import { showBarcode } from "@/utils/showBarcode";
+import { navigateToBarcodeScreen } from "@/utils/showBarcode";
 import ListInactiveBarcodes from "@/components/ListInactiveBarcode";
 import { restaurants } from "@/utils/images";
-import useBarcodeUsed from "@/hooks/useBarcodeUsed";
+import useBarcodeManager from "@/hooks/useBarcodeManager";
 
 export default function Index() {
   const [refreshKey, setRefreshKey] = useState(0);
@@ -17,8 +17,8 @@ export default function Index() {
     inactiveBarcodes,
     unmarkBarcodeAsUsed,
     markBarcodeAsUsed
-  } = useBarcodeUsed();
-  const [showActive, setshowActive] = useState<boolean>(true);
+  } = useBarcodeManager();
+  const [showActive, setShowActive] = useState<boolean>(true);
 
 
 
@@ -37,7 +37,7 @@ export default function Index() {
   if (!showActive) {
     return (
       <View style={{ flex: 1 }}>
-        <Button color={"green"} title="הצג ברקודים פעילים" onPress={() => setshowActive(true)} />
+        <Button color={"green"} title="הצג ברקודים פעילים" onPress={() => setShowActive(true)} />
           {Object.keys(inactiveBarcodes).length === 0 ? 
           <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
           <Text style={{fontSize: 25}}>חוסך ליין? 😉</Text> 
@@ -50,7 +50,7 @@ export default function Index() {
   }
   return (
     <View key={refreshKey} style={{ flex: 1 }}>
-      <Button color={"grey"} title="הצג ברקודים לא פעילים" onPress={() => setshowActive(false)} />
+      <Button color={"grey"} title="הצג ברקודים לא פעילים" onPress={() => setShowActive(false)} />
       {Object.keys(activeBarcodes).length === 0 ? (
         <EmptyState />
       ) : (
@@ -64,7 +64,7 @@ export default function Index() {
                 markBarcodeAsUsed={markBarcodeAsUsed}
                 restaurant={restaurant}
                 barcodes={activeBarcodes}
-                funcPress={showBarcode}
+                onPressBarcodes={navigateToBarcodeScreen}
               />)
           })}
         </View>

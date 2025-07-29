@@ -17,10 +17,10 @@ export default function AddRestaurant({ onAdd }: AddRestaurantProps) {
             return;
         }
 
-        const rest: Restaurant = { label: input, value: input };
-        saveRestaurant(rest).then((data) => {
+        const newRestaurant: Restaurant = { label: input, value: input };
+        saveRestaurant(newRestaurant).then((data) => {
             setMessage(data ? 'המסעדה נוספה בהצלחה!' : 'שגיאה בהוספת מסעדה');
-            onAdd(rest);  // מוסיף את המסעדה החדשה לרשימה שהתקבלה מההורה
+            onAdd(newRestaurant);  // מוסיף את המסעדה החדשה לרשימה שהתקבלה מההורה
         });
 
         setInput('');

@@ -1,4 +1,3 @@
-import { getBarcode } from "@/storage/barcodeRepository";
 import CustomButton from "@/ui/CustomButton";
 import { router } from "expo-router";
 import { useState, useEffect } from "react";

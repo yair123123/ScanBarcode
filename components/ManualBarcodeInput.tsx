@@ -3,7 +3,7 @@ import CustomButton from "../ui/CustomButton";
 
 
     
-const ManualButton: React.FC<BarcodeInputProps> = ({ barcodeData, setBarcodeData, handleBarcode, scanned } : BarcodeInputProps) => {
+const ManualBarcodeInput: React.FC<BarcodeInputProps> = ({ barcodeData, setBarcodeData, handleBarcode, scanned } : BarcodeInputProps) => {
   return (
     <View style={styles.inputContainer}>
         
@@ -11,7 +11,7 @@ const ManualButton: React.FC<BarcodeInputProps> = ({ barcodeData, setBarcodeData
   );
 };
 
-export default ManualButton;
+export default ManualBarcodeInput;
 
 const styles = StyleSheet.create({
   inputContainer: {
